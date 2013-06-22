@@ -36,6 +36,12 @@ module LevelEditor
     def convert_2D_to_1D(x,y)
       x + (y * width)
     end
+
+    def next_pixel_on_the_right_on_the_same_line?(x,y)
+      return false if x >= width
+      next_x = x + 1
+      get_color(x,y) == get_color(next_x,y)
+    end
   end
 end
 
@@ -77,6 +83,16 @@ describe LevelEditor::Image do
     @image.get_color(0,0).must_equal("white")
     @image.get_color(3,0).must_equal("black")
     @image.get_color(3,1).must_equal("red")
+  end
+
+  it "can know if the next pixel horizontal is on the same line" do
+    @image.next_pixel_on_the_right_on_the_same_line?(0,0).must_equal(true)  # white pixel
+    @image.next_pixel_on_the_right_on_the_same_line?(0,1).must_equal(true)  # black pixel
+    @image.next_pixel_on_the_right_on_the_same_line?(5,0).must_equal(false) # right border
+    @image.next_pixel_on_the_right_on_the_same_line?(3,1).must_equal(false) # red pixel
+    @image.next_pixel_on_the_right_on_the_same_line?(2,0).must_equal(false) # color change
+    @image.next_pixel_on_the_right_on_the_same_line?(3,0).must_equal(false) # color change
+    @image.next_pixel_on_the_right_on_the_same_line?(4,2).must_equal(false) # color change
   end
 
 end
