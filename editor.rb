@@ -12,6 +12,11 @@ module LevelEditor
     def width
       @original_image.columns
     end
+
+    def heigth
+      @original_image.rows
+    end
+
   end
 end
 
@@ -24,8 +29,11 @@ describe "Use case on a simple image 6x3" do
     @image.original_image.class.must_equal Magick::Image
   end
 
-  it "can retrieve the length in meter of the level" do
+  it "can retrieve is width" do
     @image.width.must_equal(6)
   end
 
+  it "can retrieve his heigth" do
+    @image.heigth.must_equal(3)
+  end
 end
