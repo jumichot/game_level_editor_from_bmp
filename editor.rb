@@ -28,6 +28,11 @@ module LevelEditor
     def get(x,y)
       pixels[convert_2D_to_1D(x,y)]
     end
+
+    def get_color(x,y)
+      get(x,y).to_color
+    end
+
     def convert_2D_to_1D(x,y)
       x + (y * width)
     end
@@ -68,6 +73,11 @@ describe LevelEditor::Image do
     @image.get(0,0).must_be_instance_of(Magick::Pixel)
   end
 
+  it "can access to a pixel color" do
+    @image.get_color(0,0).must_equal("white")
+    @image.get_color(3,0).must_equal("black")
+    @image.get_color(3,1).must_equal("red")
+  end
 
 end
 
