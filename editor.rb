@@ -41,6 +41,11 @@ module LevelEditor
       return false if x + 1 >= width
       get_color(x,y) == get_color(x + 1,y)
     end
+
+    def left_pixel_identical?(x,y)
+      return false if x == 0
+      get_color(x,y) == get_color(x - 1,y)
+    end
     end
   end
 end
@@ -85,15 +90,31 @@ describe LevelEditor::Image do
     @image.get_color(3,1).must_equal("red")
   end
 
+  #   012345
+  # 0 xxxoxx
+  # 1 ooo-xx
+  # 2 xxxxxo
+
   it "can know if the next pixel on the right is on the same line" do
-    @image.right_pixel_identical?(0,0).must_equal(true)  # white pixel
-    @image.right_pixel_identical?(0,1).must_equal(true)  # black pixel
-    @image.right_pixel_identical?(5,0).must_equal(false) # right border
-    @image.right_pixel_identical?(3,1).must_equal(false) # red pixel
-    @image.right_pixel_identical?(2,0).must_equal(false) # color change
-    @image.right_pixel_identical?(3,0).must_equal(false) # color change
-    @image.right_pixel_identical?(4,2).must_equal(false) # color change
-    @image.right_pixel_identical?(5,2).must_equal(false) # color change
+    @image.right_pixel_identical?(0,0).must_equal(true)
+    @image.right_pixel_identical?(2,0).must_equal(false)
+    @image.right_pixel_identical?(5,0).must_equal(false)
+    @image.right_pixel_identical?(3,1).must_equal(false)
+    @image.right_pixel_identical?(3,0).must_equal(false)
+    @image.right_pixel_identical?(4,2).must_equal(false)
+    @image.right_pixel_identical?(5,2).must_equal(false)
+  end
+
+  it "can know if the next pixel on the right is on the same line" do
+    @image.left_pixel_identical?(0,0).must_equal(false)
+    @image.left_pixel_identical?(1,0).must_equal(true)
+    @image.left_pixel_identical?(5,2).must_equal(false)
+    @image.left_pixel_identical?(4,2).must_equal(true)
+    @image.left_pixel_identical?(4,1).must_equal(false)
+    @image.left_pixel_identical?(2,1).must_equal(true)
+    @image.left_pixel_identical?(1,1).must_equal(true)
+    @image.left_pixel_identical?(3,1).must_equal(false)
+  end
   end
 
 end
