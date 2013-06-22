@@ -41,6 +41,11 @@ module LevelEditor
       x + (y * width)
     end
 
+    def top_pixel_identical?(x,y)
+      return false if y == 0
+      get_color(x,y) == get_color(x,y-1)
+    end
+
     def right_pixel_identical?(x,y)
       return false if x + 1 >= width
       get_color(x,y) == get_color(x + 1,y)

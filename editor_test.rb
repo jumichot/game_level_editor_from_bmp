@@ -134,6 +134,16 @@ describe LevelEditor::Image do
     it "has no horizontal bar" do
       @image.detect_objects["horizontal_bars"].size.must_equal(0)
     end
+
+    it "can know if the next pixel on the top is identical" do
+      @image.top_pixel_identical?(0,0).must_equal(false)
+      @image.top_pixel_identical?(3,0).must_equal(false)
+      @image.top_pixel_identical?(0,1).must_equal(true)
+      @image.top_pixel_identical?(2,1).must_equal(true)
+      @image.top_pixel_identical?(2,2).must_equal(true)
+      @image.top_pixel_identical?(5,1).must_equal(false)
+      @image.top_pixel_identical?(5,2).must_equal(true)
+    end
   end
 
   # Finished in 1.328345s, 12.7979 runs/s, 40.6521 assertions/s.
