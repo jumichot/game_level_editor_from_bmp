@@ -24,6 +24,13 @@ module LevelEditor
         @pixels << pixel
       end
     end
+
+    def get(x,y)
+      pixels[convert_2D_to_1D(x,y)]
+    end
+    def convert_2D_to_1D(x,y)
+      x + (y * width)
+    end
   end
 end
 
@@ -48,4 +55,22 @@ describe LevelEditor::Image do
     @image.pixels.must_be_instance_of(Array)
     @image.pixels.size.must_equal(18)
   end
+
+  it "can convert 2d coordinate into 1d to access in an 1D array" do
+    @image.convert_2D_to_1D(0,0).must_equal(0)
+    @image.convert_2D_to_1D(1,0).must_equal(1)
+    @image.convert_2D_to_1D(5,0).must_equal(5)
+    @image.convert_2D_to_1D(1,1).must_equal(7)
+    @image.convert_2D_to_1D(5,2).must_equal(17)
+  end
+
+  it "can access to a pixel" do
+    @image.get(0,0).must_be_instance_of(Magick::Pixel)
+  end
+
+
 end
+
+
+
+
