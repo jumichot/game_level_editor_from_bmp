@@ -77,22 +77,16 @@ module LevelEditor
 
     def horizontal_lines(color)
       result = []
-
       (0..heigth-1).each do |y|
         (0..width-1).each do |x|
            result << horizontale_line_output(x,y) if get_color(x,y) == color
         end
       end
-
       result.uniq.compact
     end
 
   end
 end
 
-
-image = LevelEditor::Image.new("test_case1.bmp")
-
-image.horizontal_lines("black")
 
 
