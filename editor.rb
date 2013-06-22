@@ -59,6 +59,11 @@ module LevelEditor
       detect_pixels_on_the_left(line,x-1,y)
     end
 
+    def horizontale_line(x,y)
+      line = []
+      detect_pixels_on_the_right(line,x,y)
+      detect_pixels_on_the_left(line,x,y)
+      return line.uniq.sort
     end
   end
 end
@@ -145,6 +150,14 @@ describe LevelEditor::Image do
     @image.detect_pixels_on_the_left([],4,2).must_equal([[4,2],[3,2],[2,2],[1,2],[0,2]])
     @image.detect_pixels_on_the_left([],2,1).must_equal([[2,1],[1,1],[0,1]])
   end
+
+  it "can detect the pixels on the right" do
+    @image.horizontale_line(0,0).must_equal([[0,0],[1,0],[2,0]])
+    @image.horizontale_line(2,0).must_equal([[0,0],[1,0],[2,0]])
+    @image.horizontale_line(1,0).must_equal([[0,0],[1,0],[2,0]])
+    @image.horizontale_line(2,2).must_equal([[0,2],[1,2],[2,2],[3,2],[4,2]])
+    @image.horizontale_line(3,1).must_equal([[3,1]])
+    @image.horizontale_line(4,0).must_equal([[4,0],[5,0]])
   end
 
 end
