@@ -3,11 +3,21 @@ require "minitest/autorun"
 
 module LevelEditor
   class Image
-    attr_reader :original_image, :pixels
+    attr_reader :original_image, :pixels, :identified_pixels
 
     def initialize(image_path)
       @original_image = Magick::Image::read(image_path).first
-      create_pixels_array
+      create_pixels_and_identified_pixels_arrays
+    end
+
+    def create_pixels_and_identified_pixels_arrays
+      @pixels = []
+
+      @original_image.each_pixel do |pixel, col, row|
+        @pixels << pixel
+      end
+
+      @identified_pixels = Array.new(width*heigth)
     end
 
     def width
@@ -16,13 +26,6 @@ module LevelEditor
 
     def heigth
       @original_image.rows
-    end
-
-    def create_pixels_array
-      @pixels = []
-      @original_image.each_pixel do |pixel, col, row|
-        @pixels << pixel
-      end
     end
 
     def get(x,y)
@@ -94,6 +97,10 @@ describe LevelEditor::Image do
   it "convert the original image into an array of pixels" do
     @image.pixels.must_be_instance_of(Array)
     @image.pixels.size.must_equal(18)
+  end
+
+  it "build an array of visited pixel with the image size" do
+    @image.identified_pixels.size.must_equal(18)
   end
 
   it "can convert 2d coordinate into 1d to access in an 1D array" do
