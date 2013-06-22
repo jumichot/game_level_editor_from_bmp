@@ -46,6 +46,12 @@ module LevelEditor
       return false if x == 0
       get_color(x,y) == get_color(x - 1,y)
     end
+
+    def detect_pixels_on_the_right(line,x,y)
+      line << [x,y]
+      return line unless right_pixel_identical?(x,y)
+      detect_pixels_on_the_right(line,x+1,y)
+    end
     end
   end
 end
@@ -115,6 +121,13 @@ describe LevelEditor::Image do
     @image.left_pixel_identical?(2,1).must_equal(true)
     @image.left_pixel_identical?(1,1).must_equal(true)
     @image.left_pixel_identical?(3,1).must_equal(false)
+  end
+
+  it "can retrieve all pixels of the same line on the right" do
+    @image.detect_pixels_on_the_right([],2,2).must_equal([[2,2],[3,2],[4,2]])
+    @image.detect_pixels_on_the_right([],3,1).must_equal([[3,1]])
+    @image.detect_pixels_on_the_right([],5,0).must_equal([[5,0]])
+    @image.detect_pixels_on_the_right([],1,0).must_equal([[1,0],[2,0]])
   end
   end
 
