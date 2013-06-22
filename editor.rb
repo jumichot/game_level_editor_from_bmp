@@ -70,7 +70,7 @@ module LevelEditor
       return line.uniq.sort
     end
 
-    def mark_identified_pixel(line)
+    def mark_visited_horizontal_pixels(line)
       line.each do |x,y|
         @visited_horizontal_pixels[convert_2D_to_1D(x,y)] = get_color(line.first[0],line.first[1])
       end
@@ -83,7 +83,7 @@ module LevelEditor
     def horizontale_line_output(x,y)
       line = horizontale_line_pixels(x,y)
       return if line.count == 1
-      mark_identified_pixel(line)
+      mark_visited_horizontal_pixels(line)
       [line.first[0], line.last[0], line.first[1]]
     end
 
@@ -93,8 +93,9 @@ module LevelEditor
       @visited_horizontal_pixels = Array.new(width*heigth)
       (0..heigth-1).each do |y|
         (0..width-1).each do |x|
-          next if already_identified?( @visited_horizontal_pixels,x,y)
-          result["horizontal_bars"] << horizontale_line_output(x,y) if get_color(x,y) == LINE_ELEMENT
+          unless already_identified?(@visited_horizontal_pixels,x,y)
+            result["horizontal_bars"] << horizontale_line_output(x,y) if get_color(x,y) == LINE_ELEMENT
+          end
         end
       end
       result["horizontal_bars"] = result["horizontal_bars"].uniq.compact
