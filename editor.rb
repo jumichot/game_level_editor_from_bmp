@@ -52,6 +52,13 @@ module LevelEditor
       return line unless right_pixel_identical?(x,y)
       detect_pixels_on_the_right(line,x+1,y)
     end
+
+    def detect_pixels_on_the_left(line,x,y)
+      line << [x,y]
+      return line unless left_pixel_identical?(x,y)
+      detect_pixels_on_the_left(line,x-1,y)
+    end
+
     end
   end
 end
@@ -128,6 +135,15 @@ describe LevelEditor::Image do
     @image.detect_pixels_on_the_right([],3,1).must_equal([[3,1]])
     @image.detect_pixels_on_the_right([],5,0).must_equal([[5,0]])
     @image.detect_pixels_on_the_right([],1,0).must_equal([[1,0],[2,0]])
+  end
+
+  it "can retrieve all pixels of the same line on the left" do
+    @image.detect_pixels_on_the_left([],0,0).must_equal([[0,0]])
+    @image.detect_pixels_on_the_left([],3,1).must_equal([[3,1]])
+    @image.detect_pixels_on_the_left([],4,1).must_equal([[4,1]])
+    @image.detect_pixels_on_the_left([],5,1).must_equal([[5,1],[4,1]])
+    @image.detect_pixels_on_the_left([],4,2).must_equal([[4,2],[3,2],[2,2],[1,2],[0,2]])
+    @image.detect_pixels_on_the_left([],2,1).must_equal([[2,1],[1,1],[0,1]])
   end
   end
 
