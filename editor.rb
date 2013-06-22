@@ -3,7 +3,9 @@ require "minitest/autorun"
 
 module LevelEditor
   class Image
-    attr_reader :original_image, :pixels, :identified_pixels
+    attr_reader :original_image, :pixels, :visited_horizontal_pixels
+
+    LINE_ELEMENT = "black"
 
     def initialize(image_path)
       @original_image = Magick::Image::read(image_path).first
@@ -16,8 +18,7 @@ module LevelEditor
       @original_image.each_pixel do |pixel, col, row|
         @pixels << pixel
       end
-
-      @identified_pixels = Array.new(width*heigth)
+      @visited_horizontal_pixels = Array.new(width*heigth)
     end
 
     def width
@@ -69,17 +70,30 @@ module LevelEditor
       return line.uniq.sort
     end
 
+    def mark_identified_pixel(line)
+      line.each do |x,y|
+        @visited_horizontal_pixels[convert_2D_to_1D(x,y)] = get_color(line.first[0],line.first[1])
+      end
+    end
+
+    def already_identified?(ary,x,y)
+       get_color(x,y) == ary[convert_2D_to_1D(x,y)]
+    end
+
     def horizontale_line_output(x,y)
       line = horizontale_line_pixels(x,y)
       return if line.count == 1
+      mark_identified_pixel(line)
       [line.first[0], line.last[0], line.first[1]]
     end
 
-    def horizontal_lines(color)
+    def detect_objects
       result = []
+      @visited_horizontal_pixels = Array.new(width*heigth)
       (0..heigth-1).each do |y|
         (0..width-1).each do |x|
-           result << horizontale_line_output(x,y) if get_color(x,y) == color
+          next if already_identified?( @visited_horizontal_pixels,x,y)
+          result << horizontale_line_output(x,y) if get_color(x,y) == LINE_ELEMENT
         end
       end
       result.uniq.compact
@@ -87,6 +101,3 @@ module LevelEditor
 
   end
 end
-
-
-

@@ -29,7 +29,7 @@ describe LevelEditor::Image do
     end
 
     it "build an array of visited pixel with the image size" do
-      @image.identified_pixels.size.must_equal(18)
+      @image.visited_horizontal_pixels.size.must_equal(18)
     end
 
     it "can convert 2d coordinate into 1d to access in an 1D array" do
@@ -101,15 +101,17 @@ describe LevelEditor::Image do
       @image.horizontale_line_output(3,1).must_be_nil
     end
 
-    it "can get all the horizontal lines of black pixels" do
-      @image.horizontal_lines("black").size.must_equal(1)
-      @image.horizontal_lines("black").must_equal([[0,2,1]])
+    it "can get all the horizontal lines" do
+      @image.detect_objects.size.must_equal(1)
+      @image.detect_objects.must_equal([[0,2,1]])
     end
 
-    it "can get all the horizontal lines of white pixels" do
-      @image.horizontal_lines("white").size.must_equal(4)
-      @image.horizontal_lines("white").must_equal([[0,2,0],[4,5,0],[4,5,1],[0,4,2]])
+    it "know pixels already identified for a color" do
+      ary = []
+      ary[0] =  @image.get_color(0,0)
+      @image.already_identified?(ary,0,0).must_equal(true)
     end
+
   end
 
   describe "crash test with 100x51 image with only horizontal lines" do
@@ -118,10 +120,11 @@ describe LevelEditor::Image do
     end
 
     it "can get all the horizontal lines of black pixels" do
-      @image.horizontal_lines("black").size.must_equal(9)
-      @image.horizontal_lines("black").must_equal([[0, 23, 0], [120, 139, 0], [13, 36, 11], [127, 139, 22], [0, 35, 25], [22, 36, 31], [8, 52, 32], [0, 31, 50], [123, 139, 50]])
+      @image.detect_objects.size.must_equal(9)
+      @image.detect_objects.must_equal([[0, 23, 0], [120, 139, 0], [13, 36, 11], [127, 139, 22], [0, 35, 25], [22, 36, 31], [8, 52, 32], [0, 31, 50], [123, 139, 50]])
     end
   end
 
   # Finished in 1.328345s, 12.7979 runs/s, 40.6521 assertions/s.
+  # Finished in 0.943738s, 18.0135 runs/s, 56.1597 assertions/s. après amélioration
 end
