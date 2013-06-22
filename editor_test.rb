@@ -102,8 +102,8 @@ describe LevelEditor::Image do
     end
 
     it "can get all the horizontal lines" do
-      @image.detect_objects.size.must_equal(1)
-      @image.detect_objects.must_equal([[0,2,1]])
+      @image.detect_objects["horizontal_bars"].size.must_equal(1)
+      @image.detect_objects["horizontal_bars"].must_equal([[0,2,1]])
     end
 
     it "know pixels already identified for a color" do
@@ -120,8 +120,8 @@ describe LevelEditor::Image do
     end
 
     it "can get all the horizontal lines of black pixels" do
-      @image.detect_objects.size.must_equal(9)
-      @image.detect_objects.must_equal([[0, 23, 0], [120, 139, 0], [13, 36, 11], [127, 139, 22], [0, 35, 25], [22, 36, 31], [8, 52, 32], [0, 31, 50], [123, 139, 50]])
+      @image.detect_objects["horizontal_bars"].size.must_equal(9)
+      @image.detect_objects["horizontal_bars"].must_equal([[0, 23, 0], [120, 139, 0], [13, 36, 11], [127, 139, 22], [0, 35, 25], [22, 36, 31], [8, 52, 32], [0, 31, 50], [123, 139, 50]])
     end
   end
 
