@@ -1,6 +1,6 @@
 require './editor.rb'
 describe LevelEditor::Image do
-  describe "simple test case with 6x3 image" do
+  describe "simple test case with 6x3 image with only horizontal bars" do
     before do
       @image = LevelEditor::Image.new("images/test_case1.bmp")
 
@@ -28,10 +28,6 @@ describe LevelEditor::Image do
       @image.pixels.size.must_equal(18)
     end
 
-    it "build an array of visited pixel with the image size" do
-      @image.visited_horizontal_pixels.size.must_equal(18)
-    end
-
     it "can convert 2d coordinate into 1d to access in an 1D array" do
       @image.convert_2D_to_1D(0,0).must_equal(0)
       @image.convert_2D_to_1D(1,0).must_equal(1)
@@ -50,7 +46,7 @@ describe LevelEditor::Image do
       @image.get_color(3,1).must_equal("red")
     end
 
-    it "can know if the next pixel on the right is on the same line" do
+    it "can know if the next pixel on the right is identical" do
       @image.right_pixel_identical?(0,0).must_equal(true)
       @image.right_pixel_identical?(2,0).must_equal(false)
       @image.right_pixel_identical?(5,0).must_equal(false)
@@ -60,7 +56,7 @@ describe LevelEditor::Image do
       @image.right_pixel_identical?(5,2).must_equal(false)
     end
 
-    it "can know if the next pixel on the right is on the same line" do
+    it "can know if the next pixel on the right is identical" do
       @image.left_pixel_identical?(0,0).must_equal(false)
       @image.left_pixel_identical?(1,0).must_equal(true)
       @image.left_pixel_identical?(5,2).must_equal(false)
@@ -122,6 +118,21 @@ describe LevelEditor::Image do
     it "can get all the horizontal lines of black pixels" do
       @image.detect_objects["horizontal_bars"].size.must_equal(9)
       @image.detect_objects["horizontal_bars"].must_equal([[0, 23, 0], [120, 139, 0], [13, 36, 11], [127, 139, 22], [0, 35, 25], [22, 36, 31], [8, 52, 32], [0, 31, 50], [123, 139, 50]])
+    end
+  end
+
+  describe "simple test case with 6x3 images with only vertical bars" do
+    before do
+      @image = LevelEditor::Image.new("images/test_case_2.bmp")
+
+      #   012345
+      # 0 oxoxxx    x white
+      # 1 oxoxxo    o black
+      # 2 xxoxxo    - red
+    end
+
+    it "has no horizontal bar" do
+      @image.detect_objects["horizontal_bars"].size.must_equal(0)
     end
   end
 
