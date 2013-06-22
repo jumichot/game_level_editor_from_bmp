@@ -53,6 +53,12 @@ end
 describe LevelEditor::Image do
   before do
     @image = LevelEditor::Image.new("test_case1.bmp")
+
+    #   012345
+    # 0 xxxoxx    x white
+    # 1 ooo-xx    o black
+    # 2 xxxxxo    - red
+
   end
 
   it "must have an Magick::Image instance attribute" do
@@ -89,11 +95,6 @@ describe LevelEditor::Image do
     @image.get_color(3,0).must_equal("black")
     @image.get_color(3,1).must_equal("red")
   end
-
-  #   012345
-  # 0 xxxoxx
-  # 1 ooo-xx
-  # 2 xxxxxo
 
   it "can know if the next pixel on the right is on the same line" do
     @image.right_pixel_identical?(0,0).must_equal(true)
