@@ -25,6 +25,12 @@ module LevelEditor
     def known_object?(pixel_color)
       ELEMENTS.has_value?(pixel_color)
     end
+
+    def to_unity
+      ELEMENTS.each do |key, value|
+        @all_objects[key].uniq.each {|elem| puts "add_#{key}_bar(#{elem[0]},#{elem[1]})"}
+      end
+    end
   end
 
 end
