@@ -191,6 +191,10 @@ describe LevelEditor::Image do
       @image.line_output(:vertical,3,1).must_be_nil
     end
 
+    it "can get all the vertical lines" do
+      @image.detect_objects["vertical_bars"].size.must_equal(3)
+      @image.detect_objects["vertical_bars"].must_equal([[0, 0, 1], [2, 0, 2], [5, 1, 2]])
+    end
   end
 
 end

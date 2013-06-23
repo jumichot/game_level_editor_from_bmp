@@ -102,15 +102,18 @@ module LevelEditor
     def detect_objects
       result = {}
       result["horizontal_bars"] = []
+      result["vertical_bars"] = []
       @visited_horizontal_pixels = Array.new(width*heigth)
       (0..heigth-1).each do |y|
         (0..width-1).each do |x|
           unless already_identified?(@visited_horizontal_pixels,x,y)
             result["horizontal_bars"] << horizontale_line_output(x,y) if get_color(x,y) == LINE_ELEMENT
           end
+            result["vertical_bars"] << line_output(:vertical,x,y) if get_color(x,y) == LINE_ELEMENT
         end
       end
       result["horizontal_bars"] = result["horizontal_bars"].uniq.compact
+      result["vertical_bars"] = result["vertical_bars"].uniq.compact
       result
     end
 
