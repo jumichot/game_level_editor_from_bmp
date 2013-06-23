@@ -130,7 +130,7 @@ describe LevelEditor::Image do
 
       #   012345
       # 0 oxoxxx    x white
-      # 1 oxoxxo    o black
+      # 1 oxo-xo    o black
       # 2 xxoxxo    - red
 
     end
@@ -183,6 +183,14 @@ describe LevelEditor::Image do
       @image.find_all_pixels_on_the_line(:vertical,2,2).must_equal(second_black_line)
       @image.find_all_pixels_on_the_line(:vertical,5,1).must_equal(third_black_line)
     end
+
+    it "output the x_start, x_end, and the y of a vertical line" do
+      @image.line_output(:vertical,0,0).must_equal([0,0,1])
+      @image.line_output(:vertical,2,0).must_equal([2,0,2])
+      @image.line_output(:vertical,5,2).must_equal([5,1,2])
+      @image.line_output(:vertical,3,1).must_be_nil
+    end
+
   end
 
 end

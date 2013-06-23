@@ -73,6 +73,18 @@ module LevelEditor
       return line.uniq.sort
     end
 
+    def line_output(direction,x,y)
+      line = find_all_pixels_on_the_line(direction,x,y)
+      return if line.count == 1
+      case direction
+      when :vertical
+        [line.first[0], line.first[1], line.last[1]]
+      when :horizontal
+        mark_visited_horizontal_pixels(line)
+        [line.first[0], line.last[0], line.first[1]]
+      end
+    end
+
     def mark_visited_horizontal_pixels(line)
       line.each do |x,y|
         @visited_horizontal_pixels[convert_2D_to_1D(x,y)] = get_color(line.first[0],line.first[1])
