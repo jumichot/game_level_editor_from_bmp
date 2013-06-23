@@ -1,6 +1,6 @@
 require "minitest_helper"
 
-describe LevelEditor::Image do
+describe LevelEditor::ImageInterroger do
   describe "6x3 image with 1 horizontal bar" do
 
     #   012345
@@ -9,7 +9,7 @@ describe LevelEditor::Image do
     # 2 xxxxxo    - red
 
     before do
-      @image = LevelEditor::Image.new("images/test_case1.bmp")
+      @image = LevelEditor::ImageInterroger.new("images/test_case1.bmp")
     end
 
     it "must have an Magick::Image instance attribute" do
@@ -129,7 +129,7 @@ describe LevelEditor::Image do
 
   describe "simple test case with 6x3 images with only vertical bars" do
     before do
-      @image = LevelEditor::Image.new("images/test_case_2.bmp")
+      @image = LevelEditor::ImageInterroger.new("images/test_case_2.bmp")
 
       #   012345
       # 0 oxoxxx    x white

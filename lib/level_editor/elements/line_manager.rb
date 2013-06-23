@@ -1,11 +1,11 @@
 module LevelEditor
   class LineManager
-    attr_reader :image
+    attr_reader :image_interroger
 
     COLOR = "black"
 
-    def initialize(level_editor_image)
-      @image = level_editor_image
+    def initialize(image_interroger)
+      @image_interroger = image_interroger
     end
   end
 end

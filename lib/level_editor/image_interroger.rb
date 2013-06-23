@@ -1,5 +1,5 @@
 module LevelEditor
-  class Image
+  class ImageInterroger
     include ImageHelper
     attr_reader :original_image, :pixels, :already_analized_pixel
 

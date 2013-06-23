@@ -1,11 +1,11 @@
 module LevelEditor
   class Editor
-    attr_reader :image, :objects, :line_manager
+    attr_reader :image_interroger, :objects, :line_manager
 
     def initialize(image_path)
-      @image = Image.new image_path
-      @line_manager = LineManager.new(@image)
-      @objects = @image.detect_objects
+      @image_interroger = ImageInterroger.new image_path
+      @line_manager = LineManager.new(@image_interroger)
+      @objects = @image_interroger.detect_objects
     end
   end
 end

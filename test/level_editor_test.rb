@@ -13,7 +13,7 @@ describe LevelEditor::Editor do
     end
 
     it "must have an LevelEditor::Image instance attribute" do
-      @editor.image.class.must_equal LevelEditor::Image
+      @editor.image_interroger.class.must_equal LevelEditor::ImageInterroger
     end
 
     it "must have an LevelEditor::LineManager instance attribute" do
