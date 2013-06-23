@@ -8,8 +8,9 @@ puts ""
 
 Benchmark.bm 16 do |x|
   x.report "Durée traitement" do
-    @img = LevelEditor::Image.new ARGV[0]
-    @objects = @img.detect_objects
+    @editor = LevelEditor::Editor.new ARGV[0]
+    @img = @editor.image_interroger
+    @objects = @editor.find_all_objects
   end
 end
 
@@ -19,6 +20,6 @@ puts "============================================================="
 puts "                  APPOLLO MILK LEVEL EDITOR                  "
 puts "============================================================="
 puts "Longueur du niveau \t #{@img.width}m"
-puts "Barres horizontales  \t #{@objects["horizontal_bars"].count}"
-puts "Barres verticales  \t #{@objects["vertical_bars"].count}"
+puts "Barres horizontales  \t #{@objects[:horizontal_bars].count}"
+puts "Barres verticales  \t #{@objects[:vertical_bars].count}"
 
