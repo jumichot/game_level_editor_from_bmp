@@ -17,4 +17,9 @@ describe LevelEditor::Line do
     @vertical_line.length.must_equal 2
   end
 
+  it "knows its length" do
+    @horizontal_line.to_a.must_equal [0,2,1]
+    @vertical_line.to_a.must_equal [5,0,1]
+  end
+
 end

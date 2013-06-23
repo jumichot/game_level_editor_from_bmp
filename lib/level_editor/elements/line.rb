@@ -17,6 +17,10 @@ module LevelEditor
       return (@y_start - @y_end).abs + 1 if vertical?
     end
 
+    def to_a
+      return [@x_start,@x_end,@y_start] if horizontal?
+      return [@x_start,@y_start,@y_end] if vertical?
+    end
 
     def horizontal?
       direction == :horizontal
