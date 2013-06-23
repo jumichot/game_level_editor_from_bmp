@@ -1,4 +1,10 @@
-require './editor.rb'
+require "minitest/autorun"
+require 'minitest/ansi'
+
+require 'level_editor.rb'
+
+MiniTest::ANSI.use!
+
 describe LevelEditor::Image do
   describe "simple test case with 6x3 image with only horizontal bars" do
     before do

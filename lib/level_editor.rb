@@ -1,5 +1,4 @@
 require "rmagick"
-require "minitest/autorun"
 
 module LevelEditor
   class Image
