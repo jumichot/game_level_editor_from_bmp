@@ -41,34 +41,28 @@ module LevelEditor
       x + (y * width)
     end
 
-    def top_pixel_identical?(x,y)
-      return false if y == 0
-      get_color(x,y) == get_color(x,y-1)
-    end
-
     def pixel_identical?(direction,x,y)
-      y + 1 < heigth and get_color(x,y) == get_color(x, y + 1)
-    end
-
-    def right_pixel_identical?(x,y)
-      return false if x + 1 >= width
-      get_color(x,y) == get_color(x + 1,y)
-    end
-
-    def left_pixel_identical?(x,y)
-      return false if x == 0
-      get_color(x,y) == get_color(x - 1,y)
+      case direction
+      when :top
+        y != 0 and get_color(x,y) == get_color(x,y-1)
+      when :right
+        x + 1 < width and get_color(x,y) == get_color(x + 1, y)
+      when :bottom
+        y + 1 < heigth and get_color(x,y) == get_color(x, y + 1)
+      when :left
+        x != 0 and get_color(x,y) == get_color(x - 1, y)
+      end
     end
 
     def detect_pixels_on_the_right(line,x,y)
       line << [x,y]
-      return line unless right_pixel_identical?(x,y)
+      return line unless pixel_identical?(:right,x,y)
       detect_pixels_on_the_right(line,x+1,y)
     end
 
     def detect_pixels_on_the_left(line,x,y)
       line << [x,y]
-      return line unless left_pixel_identical?(x,y)
+      return line unless pixel_identical?(:left,x,y)
       detect_pixels_on_the_left(line,x-1,y)
     end
 

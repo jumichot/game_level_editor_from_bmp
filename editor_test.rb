@@ -47,24 +47,24 @@ describe LevelEditor::Image do
     end
 
     it "can know if the next pixel on the right is identical" do
-      @image.right_pixel_identical?(0,0).must_equal(true)
-      @image.right_pixel_identical?(2,0).must_equal(false)
-      @image.right_pixel_identical?(5,0).must_equal(false)
-      @image.right_pixel_identical?(3,1).must_equal(false)
-      @image.right_pixel_identical?(3,0).must_equal(false)
-      @image.right_pixel_identical?(4,2).must_equal(false)
-      @image.right_pixel_identical?(5,2).must_equal(false)
+      @image.pixel_identical?(:right,0,0).must_equal(true)
+      @image.pixel_identical?(:right,2,0).must_equal(false)
+      @image.pixel_identical?(:right,5,0).must_equal(false)
+      @image.pixel_identical?(:right,3,1).must_equal(false)
+      @image.pixel_identical?(:right,3,0).must_equal(false)
+      @image.pixel_identical?(:right,4,2).must_equal(false)
+      @image.pixel_identical?(:right,5,2).must_equal(false)
     end
 
     it "can know if the next pixel on the right is identical" do
-      @image.left_pixel_identical?(0,0).must_equal(false)
-      @image.left_pixel_identical?(1,0).must_equal(true)
-      @image.left_pixel_identical?(5,2).must_equal(false)
-      @image.left_pixel_identical?(4,2).must_equal(true)
-      @image.left_pixel_identical?(4,1).must_equal(false)
-      @image.left_pixel_identical?(2,1).must_equal(true)
-      @image.left_pixel_identical?(1,1).must_equal(true)
-      @image.left_pixel_identical?(3,1).must_equal(false)
+      @image.pixel_identical?(:left,0,0).must_equal(false)
+      @image.pixel_identical?(:left,1,0).must_equal(true)
+      @image.pixel_identical?(:left,5,2).must_equal(false)
+      @image.pixel_identical?(:left,4,2).must_equal(true)
+      @image.pixel_identical?(:left,4,1).must_equal(false)
+      @image.pixel_identical?(:left,2,1).must_equal(true)
+      @image.pixel_identical?(:left,1,1).must_equal(true)
+      @image.pixel_identical?(:left,3,1).must_equal(false)
     end
 
     it "can retrieve all pixels of the same line on the right" do
@@ -136,13 +136,13 @@ describe LevelEditor::Image do
     end
 
     it "can know if the next pixel on the top is identical" do
-      @image.top_pixel_identical?(0,0).must_equal(false)
-      @image.top_pixel_identical?(3,0).must_equal(false)
-      @image.top_pixel_identical?(0,1).must_equal(true)
-      @image.top_pixel_identical?(2,1).must_equal(true)
-      @image.top_pixel_identical?(2,2).must_equal(true)
-      @image.top_pixel_identical?(5,1).must_equal(false)
-      @image.top_pixel_identical?(5,2).must_equal(true)
+      @image.pixel_identical?(:top,0,0).must_equal(false)
+      @image.pixel_identical?(:top,3,0).must_equal(false)
+      @image.pixel_identical?(:top,0,1).must_equal(true)
+      @image.pixel_identical?(:top,2,1).must_equal(true)
+      @image.pixel_identical?(:top,2,2).must_equal(true)
+      @image.pixel_identical?(:top,5,1).must_equal(false)
+      @image.pixel_identical?(:top,5,2).must_equal(true)
     end
 
     it "can know if the next pixel on the right is identical" do
