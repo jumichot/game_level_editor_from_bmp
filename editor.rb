@@ -47,22 +47,21 @@ module LevelEditor
       end
     end
 
-    def detect_pixels_on_the_right(line,x,y)
+    def detect_pixels(direction,x,y,line)
       line << [x,y]
-      return line unless pixel_identical?(:right,x,y)
-      detect_pixels_on_the_right(line,x+1,y)
-    end
-
-    def detect_pixels_on_the_left(line,x,y)
-      line << [x,y]
-      return line unless pixel_identical?(:left,x,y)
-      detect_pixels_on_the_left(line,x-1,y)
+      return line unless pixel_identical?(direction,x,y)
+      case direction
+      when :right
+        detect_pixels(direction,x+1,y,line)
+      when :left
+        detect_pixels(direction,x-1,y,line)
+      end
     end
 
     def horizontale_line_pixels(x,y)
       line = []
-      detect_pixels_on_the_right(line,x,y)
-      detect_pixels_on_the_left(line,x,y)
+      detect_pixels(:right,x,y,line)
+      detect_pixels(:left,x,y,line)
       return line.uniq.sort
     end
 
