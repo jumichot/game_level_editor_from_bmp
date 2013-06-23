@@ -111,16 +111,6 @@ describe LevelEditor::ImageInterroger do
       @image.find_all_pixels_on_axis(:horizontal,3,1).must_equal([[3,1]])
       @image.find_all_pixels_on_axis(:horizontal,4,0).must_equal([[4,0],[5,0]])
     end
-
-    it "output the x_start, x_end, and the y of a horizontal line" do
-      @image.line_output(:horizontal,2,2).must_equal([0,4,2])
-      @image.line_output(:horizontal,3,1).must_be_nil
-    end
-
-    it "know pixels already identified for a color" do
-      @image.already_analized_pixel[0] =  @image.get_color(0,0)
-      @image.pixel_already_identified?(0,0).must_equal(true)
-    end
   end
 
   describe "simple test case with 6x3 images with only vertical bars" do
@@ -156,13 +146,6 @@ describe LevelEditor::ImageInterroger do
       @image.find_all_pixels_on_axis(:vertical,2,0).must_equal(second_black_line)
       @image.find_all_pixels_on_axis(:vertical,2,2).must_equal(second_black_line)
       @image.find_all_pixels_on_axis(:vertical,5,1).must_equal(third_black_line)
-    end
-
-    it "output the x_start, x_end, and the y of a vertical line" do
-      @image.line_output(:vertical,0,0).must_equal([0,0,1])
-      @image.line_output(:vertical,2,0).must_equal([2,0,2])
-      @image.line_output(:vertical,5,2).must_equal([5,1,2])
-      @image.line_output(:vertical,3,1).must_be_nil
     end
   end
 

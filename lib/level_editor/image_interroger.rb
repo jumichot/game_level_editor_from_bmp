@@ -72,18 +72,6 @@ module LevelEditor
       return line.uniq.sort
     end
 
-    def line_output(direction,x,y)
-      line = find_all_pixels_on_axis(direction,x,y)
-      return if line.count == 1
-      case direction
-      when :vertical
-        [line.first[0], line.first[1], line.last[1]]
-      when :horizontal
-        mark_visited_horizontal_pixels(line)
-        [line.first[0], line.last[0], line.first[1]]
-      end
-    end
-
     def mark_visited_horizontal_pixels(line)
       line.each do |x,y|
         mark_pixel_as_visited(x,y)
@@ -99,19 +87,6 @@ module LevelEditor
           x, y = convert_1D_to_2D(index)
           yield(x,y)
       end
-    end
-
-    def detect_objects
-      result = Hash.new { |hash, key| hash[key] = [] }
-      @already_analized_pixel = Array.new(width*height)
-      @pixels.each_with_index do |pixel, index|
-          x, y = convert_1D_to_2D(index)
-          unless pixel_already_identified?(x,y)
-            result[:horizontal_bars] << line_output(:horizontal,x,y) if pixel.to_color == LINE_ELEMENT
-          end
-            result[:vertical_bars] << line_output(:vertical,x,y) if pixel.to_color == LINE_ELEMENT
-      end
-      result.each {|key,value| value.uniq!.compact!}
     end
 
     def pixel_already_identified?(x,y)
