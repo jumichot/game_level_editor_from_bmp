@@ -1,13 +1,13 @@
 module LevelEditor
   class Image
-    attr_reader :original_image, :pixels, :visited_horizontal_pixels
+    attr_reader :original_image, :pixels, :already_analized_pixel
 
     LINE_ELEMENT = "black"
 
     def initialize(image_path)
       @original_image = Magick::Image::read(image_path).first
       @pixels = create_pixels_array
-      @visited_horizontal_pixels = Array.new(width*heigth)
+      @already_analized_pixel = Array.new(width*heigth)
     end
 
     def create_pixels_array
@@ -64,7 +64,7 @@ module LevelEditor
       end
     end
 
-    def find_all_pixels_on_the_line(direction,x,y)
+    def find_all_pixels_on_axis(direction,x,y)
       line = []
       case direction
       when :vertical
@@ -76,7 +76,7 @@ module LevelEditor
     end
 
     def line_output(direction,x,y)
-      line = find_all_pixels_on_the_line(direction,x,y)
+      line = find_all_pixels_on_axis(direction,x,y)
       return if line.count == 1
       case direction
       when :vertical
@@ -89,7 +89,7 @@ module LevelEditor
 
     def mark_visited_horizontal_pixels(line)
       line.each do |x,y|
-        @visited_horizontal_pixels[convert_2D_to_1D(x,y)] = get_color(line.first[0],line.first[1])
+        @already_analized_pixel[convert_2D_to_1D(x,y)] = get_color(line.first[0],line.first[1])
       end
     end
 
@@ -97,10 +97,10 @@ module LevelEditor
       result = {}
       result["horizontal_bars"] = []
       result["vertical_bars"] = []
-      @visited_horizontal_pixels = Array.new(width*heigth)
+      @already_analized_pixel = Array.new(width*heigth)
       (0..heigth-1).each do |y|
         (0..width-1).each do |x|
-          unless already_identified?(@visited_horizontal_pixels,x,y)
+          unless already_identified?(@already_analized_pixel,x,y)
             result["horizontal_bars"] << line_output(:horizontal,x,y) if get_color(x,y) == LINE_ELEMENT
           end
             result["vertical_bars"] << line_output(:vertical,x,y) if get_color(x,y) == LINE_ELEMENT

@@ -62,7 +62,7 @@ describe LevelEditor::Image do
       @image.pixel_identical?(:right,5,2).must_equal(false)
     end
 
-    it "can know if the next pixel on the right is identical" do
+    it "can know if the next pixel on the left is identical" do
       @image.pixel_identical?(:left,0,0).must_equal(false)
       @image.pixel_identical?(:left,1,0).must_equal(true)
       @image.pixel_identical?(:left,5,2).must_equal(false)
@@ -71,6 +71,25 @@ describe LevelEditor::Image do
       @image.pixel_identical?(:left,2,1).must_equal(true)
       @image.pixel_identical?(:left,1,1).must_equal(true)
       @image.pixel_identical?(:left,3,1).must_equal(false)
+    end
+
+    it "can know if the next pixel on the top is identical" do
+      @image.pixel_identical?(:top,0,0).must_equal(false)
+      @image.pixel_identical?(:top,3,0).must_equal(false)
+      @image.pixel_identical?(:top,0,1).must_equal(false)
+      @image.pixel_identical?(:top,4,2).must_equal(true)
+      @image.pixel_identical?(:top,5,1).must_equal(true)
+      @image.pixel_identical?(:top,5,2).must_equal(false)
+      @image.pixel_identical?(:top,3,1).must_equal(false)
+    end
+
+    it "can know if the next pixel on the right is identical" do
+      @image.pixel_identical?(:bottom,0,0).must_equal(false)
+      @image.pixel_identical?(:bottom,0,1).must_equal(false)
+      @image.pixel_identical?(:bottom,3,1).must_equal(false)
+      @image.pixel_identical?(:bottom,5,1).must_equal(false)
+      @image.pixel_identical?(:bottom,5,2).must_equal(false)
+      @image.pixel_identical?(:bottom,5,0).must_equal(true)
     end
 
     it "can retrieve all pixels of the same line on the right" do
@@ -89,23 +108,18 @@ describe LevelEditor::Image do
       @image.find_consecutive_pixels(:left,2,1,[]).must_equal([[2,1],[1,1],[0,1]])
     end
 
-    it "can detect all the pixels of a line" do
-      @image.find_all_pixels_on_the_line(:horizontal,0,0).must_equal([[0,0],[1,0],[2,0]])
-      @image.find_all_pixels_on_the_line(:horizontal,2,0).must_equal([[0,0],[1,0],[2,0]])
-      @image.find_all_pixels_on_the_line(:horizontal,1,0).must_equal([[0,0],[1,0],[2,0]])
-      @image.find_all_pixels_on_the_line(:horizontal,2,2).must_equal([[0,2],[1,2],[2,2],[3,2],[4,2]])
-      @image.find_all_pixels_on_the_line(:horizontal,3,1).must_equal([[3,1]])
-      @image.find_all_pixels_on_the_line(:horizontal,4,0).must_equal([[4,0],[5,0]])
+    it "can detect all the pixels of an horizontal line" do
+      @image.find_all_pixels_on_axis(:horizontal,0,0).must_equal([[0,0],[1,0],[2,0]])
+      @image.find_all_pixels_on_axis(:horizontal,2,0).must_equal([[0,0],[1,0],[2,0]])
+      @image.find_all_pixels_on_axis(:horizontal,1,0).must_equal([[0,0],[1,0],[2,0]])
+      @image.find_all_pixels_on_axis(:horizontal,2,2).must_equal([[0,2],[1,2],[2,2],[3,2],[4,2]])
+      @image.find_all_pixels_on_axis(:horizontal,3,1).must_equal([[3,1]])
+      @image.find_all_pixels_on_axis(:horizontal,4,0).must_equal([[4,0],[5,0]])
     end
 
     it "output the x_start, x_end, and the y of a horizontal line" do
       @image.line_output(:horizontal,2,2).must_equal([0,4,2])
       @image.line_output(:horizontal,3,1).must_be_nil
-    end
-
-    it "can get all the horizontal lines" do
-      @image.detect_objects["horizontal_bars"].size.must_equal(1)
-      @image.detect_objects["horizontal_bars"].must_equal([[0,2,1]])
     end
 
     it "know pixels already identified for a color" do
@@ -116,19 +130,7 @@ describe LevelEditor::Image do
 
   end
 
-  describe "crash test with 100x51 image" do
-    it "can get all the horizontal lines of black pixels" do
-      image = LevelEditor::Image.new("images/test_case_horizontale_lines.bmp")
-      objects = image.detect_objects
-      objects["horizontal_bars"].size.must_equal(8)
-      objects["horizontal_bars"].must_equal([[0, 23, 0], [120, 139, 0], [13, 36, 11], [127, 139, 22], [0, 35, 25], [8, 52, 32], [0, 31, 50], [123, 139, 50]])
-      objects["vertical_bars"].size.must_equal(11)
-    end
 
-  end
-
-  # Finished in 1.328345s, 12.7979 runs/s, 40.6521 assertions/s.
-  # Finished in 0.943738s, 18.0135 runs/s, 56.1597 assertions/s. après amélioration
 
   describe "simple test case with 6x3 images with only vertical bars" do
     before do
@@ -145,25 +147,6 @@ describe LevelEditor::Image do
       @image.detect_objects["horizontal_bars"].size.must_equal(0)
     end
 
-    it "can know if the next pixel on the top is identical" do
-      @image.pixel_identical?(:top,0,0).must_equal(false)
-      @image.pixel_identical?(:top,3,0).must_equal(false)
-      @image.pixel_identical?(:top,0,1).must_equal(true)
-      @image.pixel_identical?(:top,2,1).must_equal(true)
-      @image.pixel_identical?(:top,2,2).must_equal(true)
-      @image.pixel_identical?(:top,5,1).must_equal(false)
-      @image.pixel_identical?(:top,5,2).must_equal(true)
-    end
-
-    it "can know if the next pixel on the right is identical" do
-      @image.pixel_identical?(:bottom,0,0).must_equal(true)
-      @image.pixel_identical?(:bottom,0,1).must_equal(false)
-      @image.pixel_identical?(:bottom,0,2).must_equal(false)
-      @image.pixel_identical?(:bottom,5,1).must_equal(true)
-      @image.pixel_identical?(:bottom,5,1).must_equal(true)
-      @image.pixel_identical?(:bottom,2,1).must_equal(true)
-      @image.pixel_identical?(:bottom,5,2).must_equal(false)
-    end
 
      it "can retrieve all pixels of the same line in the top direction" do
       @image.find_consecutive_pixels(:top,0,0,[]).must_equal([[0,0]])
@@ -182,12 +165,12 @@ describe LevelEditor::Image do
       first_black_line  = [[0,0],[0,1]]
       second_black_line = [[2,0],[2,1],[2,2]]
       third_black_line  = [[5,1],[5,2]]
-      @image.find_all_pixels_on_the_line(:vertical,0,0).must_equal(first_black_line)
-      @image.find_all_pixels_on_the_line(:vertical,0,1).must_equal(first_black_line)
-      @image.find_all_pixels_on_the_line(:vertical,2,1).must_equal(second_black_line)
-      @image.find_all_pixels_on_the_line(:vertical,2,0).must_equal(second_black_line)
-      @image.find_all_pixels_on_the_line(:vertical,2,2).must_equal(second_black_line)
-      @image.find_all_pixels_on_the_line(:vertical,5,1).must_equal(third_black_line)
+      @image.find_all_pixels_on_axis(:vertical,0,0).must_equal(first_black_line)
+      @image.find_all_pixels_on_axis(:vertical,0,1).must_equal(first_black_line)
+      @image.find_all_pixels_on_axis(:vertical,2,1).must_equal(second_black_line)
+      @image.find_all_pixels_on_axis(:vertical,2,0).must_equal(second_black_line)
+      @image.find_all_pixels_on_axis(:vertical,2,2).must_equal(second_black_line)
+      @image.find_all_pixels_on_axis(:vertical,5,1).must_equal(third_black_line)
     end
 
     it "output the x_start, x_end, and the y of a vertical line" do

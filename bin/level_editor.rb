@@ -18,7 +18,7 @@ puts ""
 puts "============================================================="
 puts "                  APPOLLO MILK LEVEL EDITOR                  "
 puts "============================================================="
-puts "Longueur du niveau \t #{@img.width}"
+puts "Longueur du niveau \t #{@img.width}m"
 puts "Barres horizontales  \t #{@objects["horizontal_bars"].count}"
 puts "Barres verticales  \t #{@objects["vertical_bars"].count}"
 
