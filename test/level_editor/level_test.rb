@@ -9,23 +9,23 @@ describe LevelEditor::Level do
     # 2 xxxxxo    - red
 
     before do
-      @editor = LevelEditor::Level.new("images/test_case1.bmp")
+      @level = LevelEditor::Level.new("images/test_case1.bmp")
     end
 
     it "must have an LevelEditor::Image instance attribute" do
-      @editor.image_interroger.class.must_equal LevelEditor::ImageInterroger
+      @level.image_interroger.class.must_equal LevelEditor::ImageInterroger
     end
 
     it "must have an LevelEditor::LineManager instance attribute" do
-      @editor.line_manager.class.must_equal LevelEditor::LineManager
+      @level.line_manager.class.must_equal LevelEditor::LineManager
     end
 
     it "can retrieve the horizontal bars count " do
-      @editor.objects[:horizontal_bars].count.must_equal(1)
+      @level.objects[:horizontal_bars].count.must_equal(1)
     end
 
     it "can retrieve the horizontal bars detail " do
-      @editor.objects[:horizontal_bars].must_equal([[0,2,1]])
+      @level.objects[:horizontal_bars].must_equal([[0,2,1]])
     end
   end
 
@@ -36,7 +36,7 @@ describe LevelEditor::Level do
     # 2 xxoxxo    - red
 
     def self.editor
-      @editor ||= LevelEditor::Level.new("images/test_case_2.bmp")
+      @level ||= LevelEditor::Level.new("images/test_case_2.bmp")
     end
 
     it "has no horizontal bar" do
@@ -54,7 +54,7 @@ describe LevelEditor::Level do
 
   describe "with bigger 100x51 image" do
     def self.editor
-      @editor ||= LevelEditor::Level.new("images/test_case_horizontale_lines.bmp")
+      @level ||= LevelEditor::Level.new("images/test_case_horizontale_lines.bmp")
     end
 
     it "can get the horizontal bars count" do
