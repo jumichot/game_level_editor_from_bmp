@@ -91,14 +91,6 @@ module LevelEditor
       end
     end
 
-
-    def horizontale_line_output(x,y)
-      line = find_all_pixels_on_the_line(:horizontal,x,y)
-      return if line.count == 1
-      mark_visited_horizontal_pixels(line)
-      [line.first[0], line.last[0], line.first[1]]
-    end
-
     def detect_objects
       result = {}
       result["horizontal_bars"] = []
@@ -107,7 +99,7 @@ module LevelEditor
       (0..heigth-1).each do |y|
         (0..width-1).each do |x|
           unless already_identified?(@visited_horizontal_pixels,x,y)
-            result["horizontal_bars"] << horizontale_line_output(x,y) if get_color(x,y) == LINE_ELEMENT
+            result["horizontal_bars"] << line_output(:horizontal,x,y) if get_color(x,y) == LINE_ELEMENT
           end
             result["vertical_bars"] << line_output(:vertical,x,y) if get_color(x,y) == LINE_ELEMENT
         end

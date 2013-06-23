@@ -93,8 +93,8 @@ describe LevelEditor::Image do
     end
 
     it "output the x_start, x_end, and the y of a horizontal line" do
-      @image.horizontale_line_output(2,2).must_equal([0,4,2])
-      @image.horizontale_line_output(3,1).must_be_nil
+      @image.line_output(:horizontal,2,2).must_equal([0,4,2])
+      @image.line_output(:horizontal,3,1).must_be_nil
     end
 
     it "can get all the horizontal lines" do
