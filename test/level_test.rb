@@ -1,6 +1,6 @@
 require "minitest_helper"
 
-describe LevelEditor::Editor do
+describe LevelEditor::Level do
 
   describe "with small 6x3 image" do
     #   012345
@@ -9,7 +9,7 @@ describe LevelEditor::Editor do
     # 2 xxxxxo    - red
 
     before do
-      @editor = LevelEditor::Editor.new("images/test_case1.bmp")
+      @editor = LevelEditor::Level.new("images/test_case1.bmp")
     end
 
     it "must have an LevelEditor::Image instance attribute" do
@@ -36,7 +36,7 @@ describe LevelEditor::Editor do
     # 2 xxoxxo    - red
 
     def self.editor
-      @editor ||= LevelEditor::Editor.new("images/test_case_2.bmp")
+      @editor ||= LevelEditor::Level.new("images/test_case_2.bmp")
     end
 
     it "has no horizontal bar" do
@@ -54,7 +54,7 @@ describe LevelEditor::Editor do
 
   describe "with bigger 100x51 image" do
     def self.editor
-      @editor ||= LevelEditor::Editor.new("images/test_case_horizontale_lines.bmp")
+      @editor ||= LevelEditor::Level.new("images/test_case_horizontale_lines.bmp")
     end
 
     it "can get the horizontal bars count" do
