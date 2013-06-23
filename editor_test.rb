@@ -68,19 +68,19 @@ describe LevelEditor::Image do
     end
 
     it "can retrieve all pixels of the same line on the right" do
-      @image.detect_pixels(:right,2,2,[]).must_equal([[2,2],[3,2],[4,2]])
-      @image.detect_pixels(:right,3,1,[]).must_equal([[3,1]])
-      @image.detect_pixels(:right,5,0,[]).must_equal([[5,0]])
-      @image.detect_pixels(:right,1,0,[]).must_equal([[1,0],[2,0]])
+      @image.find_consecutive_pixels(:right,2,2,[]).must_equal([[2,2],[3,2],[4,2]])
+      @image.find_consecutive_pixels(:right,3,1,[]).must_equal([[3,1]])
+      @image.find_consecutive_pixels(:right,5,0,[]).must_equal([[5,0]])
+      @image.find_consecutive_pixels(:right,1,0,[]).must_equal([[1,0],[2,0]])
     end
 
     it "can retrieve all pixels of the same line on the left" do
-      @image.detect_pixels(:left,0,0,[]).must_equal([[0,0]])
-      @image.detect_pixels(:left,3,1,[]).must_equal([[3,1]])
-      @image.detect_pixels(:left,4,1,[]).must_equal([[4,1]])
-      @image.detect_pixels(:left,5,1,[]).must_equal([[5,1],[4,1]])
-      @image.detect_pixels(:left,4,2,[]).must_equal([[4,2],[3,2],[2,2],[1,2],[0,2]])
-      @image.detect_pixels(:left,2,1,[]).must_equal([[2,1],[1,1],[0,1]])
+      @image.find_consecutive_pixels(:left,0,0,[]).must_equal([[0,0]])
+      @image.find_consecutive_pixels(:left,3,1,[]).must_equal([[3,1]])
+      @image.find_consecutive_pixels(:left,4,1,[]).must_equal([[4,1]])
+      @image.find_consecutive_pixels(:left,5,1,[]).must_equal([[5,1],[4,1]])
+      @image.find_consecutive_pixels(:left,4,2,[]).must_equal([[4,2],[3,2],[2,2],[1,2],[0,2]])
+      @image.find_consecutive_pixels(:left,2,1,[]).must_equal([[2,1],[1,1],[0,1]])
     end
 
     it "can detect the pixels on the right" do

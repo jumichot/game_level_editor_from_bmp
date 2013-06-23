@@ -47,21 +47,21 @@ module LevelEditor
       end
     end
 
-    def detect_pixels(direction,x,y,line)
+    def find_consecutive_pixels(direction,x,y,line)
       line << [x,y]
       return line unless pixel_identical?(direction,x,y)
       case direction
       when :right
-        detect_pixels(direction,x+1,y,line)
+        find_consecutive_pixels(direction,x+1,y,line)
       when :left
-        detect_pixels(direction,x-1,y,line)
+        find_consecutive_pixels(direction,x-1,y,line)
       end
     end
 
     def horizontale_line_pixels(x,y)
       line = []
-      detect_pixels(:right,x,y,line)
-      detect_pixels(:left,x,y,line)
+      find_consecutive_pixels(:right,x,y,line)
+      find_consecutive_pixels(:left,x,y,line)
       return line.uniq.sort
     end
 
