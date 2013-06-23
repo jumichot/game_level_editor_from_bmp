@@ -5,7 +5,10 @@ module LevelEditor
     def initialize(image_path)
       @image_interroger = ImageInterroger.new image_path
       @line_manager = LineManager.new(@image_interroger)
-      @objects = @image_interroger.detect_objects
+    end
+
+    def find_all_objects
+      @all_objects ||= @image_interroger.detect_objects
     end
   end
 end
