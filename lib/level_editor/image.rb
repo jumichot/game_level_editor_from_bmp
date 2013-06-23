@@ -93,13 +93,12 @@ module LevelEditor
     def detect_objects
       result = Hash.new { |hash, key| hash[key] = [] }
       @already_analized_pixel = Array.new(width*height)
-      (0..height-1).each do |y|
-        (0..width-1).each do |x|
+      @pixels.each_with_index do |pixel, index|
+          x, y = convert_1D_to_2D(index)
           unless already_identified?(@already_analized_pixel,x,y)
-            result[:horizontal_bars] << line_output(:horizontal,x,y) if get_color(x,y) == LINE_ELEMENT
+            result[:horizontal_bars] << line_output(:horizontal,x,y) if pixel.to_color == LINE_ELEMENT
           end
-            result[:vertical_bars] << line_output(:vertical,x,y) if get_color(x,y) == LINE_ELEMENT
-        end
+            result[:vertical_bars] << line_output(:vertical,x,y) if pixel.to_color == LINE_ELEMENT
       end
       result.each {|key,value| value.uniq!.compact!}
     end
