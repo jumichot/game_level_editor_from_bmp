@@ -167,6 +167,18 @@ describe LevelEditor::Image do
       @image.find_consecutive_pixels(:bottom,2,0,[]).must_equal([[2,0],[2,1],[2,2]])
       @image.find_consecutive_pixels(:bottom,2,2,[]).must_equal([[2,2]])
     end
+
+    it "can detect all the pixels of a line" do
+      first_black_line  = [[0,0],[0,1]]
+      second_black_line = [[2,0],[2,1],[2,2]]
+      third_black_line  = [[5,1],[5,2]]
+      @image.vertical_line_pixels(0,0).must_equal(first_black_line)
+      @image.vertical_line_pixels(0,1).must_equal(first_black_line)
+      @image.vertical_line_pixels(2,1).must_equal(second_black_line)
+      @image.vertical_line_pixels(2,0).must_equal(second_black_line)
+      @image.vertical_line_pixels(2,2).must_equal(second_black_line)
+      @image.vertical_line_pixels(5,1).must_equal(third_black_line)
+    end
   end
 
   # Finished in 1.328345s, 12.7979 runs/s, 40.6521 assertions/s.
