@@ -83,7 +83,7 @@ describe LevelEditor::Image do
       @image.find_consecutive_pixels(:left,2,1,[]).must_equal([[2,1],[1,1],[0,1]])
     end
 
-    it "can detect the pixels on the right" do
+    it "can detect all the pixels of a line" do
       @image.horizontale_line_pixels(0,0).must_equal([[0,0],[1,0],[2,0]])
       @image.horizontale_line_pixels(2,0).must_equal([[0,0],[1,0],[2,0]])
       @image.horizontale_line_pixels(1,0).must_equal([[0,0],[1,0],[2,0]])
@@ -153,6 +153,19 @@ describe LevelEditor::Image do
       @image.pixel_identical?(:bottom,5,1).must_equal(true)
       @image.pixel_identical?(:bottom,2,1).must_equal(true)
       @image.pixel_identical?(:bottom,5,2).must_equal(false)
+    end
+
+     it "can retrieve all pixels of the same line in the top direction" do
+      @image.find_consecutive_pixels(:top,0,0,[]).must_equal([[0,0]])
+      @image.find_consecutive_pixels(:top,0,1,[]).must_equal([[0,1],[0,0]])
+      @image.find_consecutive_pixels(:top,2,2,[]).must_equal([[2,2],[2,1],[2,0]])
+    end
+
+    it "can retrieve all pixels of the same line in the bottom direction" do
+      @image.find_consecutive_pixels(:bottom,0,0,[]).must_equal([[0,0],[0,1]])
+      @image.find_consecutive_pixels(:bottom,0,1,[]).must_equal([[0,1]])
+      @image.find_consecutive_pixels(:bottom,2,0,[]).must_equal([[2,0],[2,1],[2,2]])
+      @image.find_consecutive_pixels(:bottom,2,2,[]).must_equal([[2,2]])
     end
   end
 

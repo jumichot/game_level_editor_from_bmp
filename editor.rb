@@ -55,6 +55,10 @@ module LevelEditor
         find_consecutive_pixels(direction,x+1,y,line)
       when :left
         find_consecutive_pixels(direction,x-1,y,line)
+      when :top
+        find_consecutive_pixels(direction,x,y-1,line)
+      when :bottom
+        find_consecutive_pixels(direction,x,y+1,line)
       end
     end
 
