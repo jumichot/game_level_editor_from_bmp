@@ -1,8 +1,5 @@
 require "minitest_helper"
 
-require 'level_editor.rb'
-
-
 describe LevelEditor::Image do
   describe "6x3 image with 1 horizontal bar" do
 
