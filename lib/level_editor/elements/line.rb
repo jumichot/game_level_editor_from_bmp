@@ -13,8 +13,17 @@ module LevelEditor
     end
 
     def length
-      return (@x_start - @x_end).abs + 1 if direction == :horizontal
-      return (@y_start - @y_end).abs + 1 if direction == :vertical
+      return (@x_start - @x_end).abs + 1 if horizontal?
+      return (@y_start - @y_end).abs + 1 if vertical?
+    end
+
+
+    def horizontal?
+      direction == :horizontal
+    end
+
+    def vertical?
+      direction == :vertical
     end
   end
 end
