@@ -9,25 +9,18 @@ module LevelEditor
 
     def initialize(image_path)
       @original_image = Magick::Image::read(image_path).first
-      create_pixels_and_identified_pixels_arrays
-    end
-
-    def create_pixels_and_identified_pixels_arrays
-      @pixels = []
-
-      @original_image.each_pixel do |pixel, col, row|
-        @pixels << pixel
-      end
+      @pixels = create_pixels_array
       @visited_horizontal_pixels = Array.new(width*heigth)
     end
 
-    def width
-      @original_image.columns
+    def create_pixels_array
+      pixels = []
+      @original_image.each_pixel {|pixel, col, row| pixels << pixel }
+      pixels
     end
 
-    def heigth
-      @original_image.rows
-    end
+    def width; @original_image.columns ; end
+    def heigth; @original_image.rows; end
 
     def get(x,y)
       pixels[convert_2D_to_1D(x,y)]
