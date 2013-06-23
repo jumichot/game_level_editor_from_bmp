@@ -86,7 +86,18 @@ module LevelEditor
 
     def mark_visited_horizontal_pixels(line)
       line.each do |x,y|
-        @already_analized_pixel[convert_2D_to_1D(x,y)] = get_color(line.first[0],line.first[1])
+        mark_pixel_as_visited(x,y)
+      end
+    end
+
+    def mark_pixel_as_visited(x,y)
+      @already_analized_pixel[convert_2D_to_1D(x,y)] = get_color(x,y)
+    end
+
+    def each_pixels
+      @pixels.each_with_index do |pixel, index|
+          x, y = convert_1D_to_2D(index)
+          yield(x,y)
       end
     end
 
