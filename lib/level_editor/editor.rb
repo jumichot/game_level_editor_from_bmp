@@ -7,7 +7,7 @@ module LevelEditor
       @line_manager = LineManager.new(@image_interroger)
     end
 
-    def find_all_objects
+    def objects
       @all_objects ||= @image_interroger.detect_objects
     end
   end
