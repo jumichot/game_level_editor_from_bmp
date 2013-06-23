@@ -1,8 +1,8 @@
 require "minitest_helper"
 
 describe LevelEditor::ImageInterroger do
-  describe "6x3 image with 1 horizontal bar" do
 
+  describe "6x3 image with 1 horizontal bar" do
     #   012345
     # 0 xxxoxx    x white
     # 1 ooo-xx    o black
@@ -121,20 +121,16 @@ describe LevelEditor::ImageInterroger do
       @image.already_analized_pixel[0] =  @image.get_color(0,0)
       @image.pixel_already_identified?(0,0).must_equal(true)
     end
-
   end
 
-
-
   describe "simple test case with 6x3 images with only vertical bars" do
+    #   012345
+    # 0 oxoxxx    x white
+    # 1 oxo-xo    o black
+    # 2 xxoxxo    - red
+
     before do
       @image = LevelEditor::ImageInterroger.new("images/test_case_2.bmp")
-
-      #   012345
-      # 0 oxoxxx    x white
-      # 1 oxo-xo    o black
-      # 2 xxoxxo    - red
-
     end
 
     it "can retrieve all pixels of the same line in the top direction" do
