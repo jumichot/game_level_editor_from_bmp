@@ -1,6 +1,6 @@
 module LevelEditor
   class LineManager
-    attr_reader :image_interroger, :lines
+    attr_reader :image_interroger, :lines, :lines_array
 
     COLOR = "black"
 
