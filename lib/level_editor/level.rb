@@ -21,10 +21,16 @@ module LevelEditor
     def outputs_objects
       find_all_objects
       @all_objects = Hash.new{|hash, key| hash[key] = []}
-      @all_objects[:horizontal_bars] = @line_manager.lines_array[:horizontal]
-      @all_objects[:vertical_bars] = @line_manager.lines_array[:vertical]
+      @all_objects[:horizontal_bars] = @line_manager.to_a(:horizontal)
+      @all_objects[:vertical_bars] = @line_manager.to_a(:vertical)
       @all_objects
     end
+
+    def to_unity
+      find_all_objects
+      @line_manager.to_unity
+    end
+
   end
 
 end

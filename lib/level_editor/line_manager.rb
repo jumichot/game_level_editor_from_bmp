@@ -26,5 +26,15 @@ module LevelEditor
         @lines_array[line.direction] << line.to_a
       end
     end
+
+    def to_a(axis)
+      @lines_array[axis]
+    end
+
+    def to_unity
+      @lines.each do |axis, lines|
+        lines.each {|line| puts line.to_unity }
+      end
+    end
   end
 end

@@ -22,6 +22,11 @@ module LevelEditor
       return [@x_start,@y_start,@y_end] if vertical?
     end
 
+    def to_unity
+      ary = to_a
+      "add_#{direction}_bar(#{ary[0]},#{ary[1]},#{ary[2]})"
+    end
+
     def horizontal?
       direction == :horizontal
     end
