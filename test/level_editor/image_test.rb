@@ -1,20 +1,18 @@
-require "minitest/autorun"
-require 'minitest/ansi'
+require "minitest_helper"
 
 require 'level_editor.rb'
 
-MiniTest::ANSI.use!
 
 describe LevelEditor::Image do
-  describe "simple test case with 6x3 image with only horizontal bars" do
+  describe "6x3 image with 1 horizontal bar" do
+
+    #   012345
+    # 0 xxxoxx    x white
+    # 1 ooo-xx    o black
+    # 2 xxxxxo    - red
+
     before do
       @image = LevelEditor::Image.new("images/test_case1.bmp")
-
-      #   012345
-      # 0 xxxoxx    x white
-      # 1 ooo-xx    o black
-      # 2 xxxxxo    - red
-
     end
 
     it "must have an Magick::Image instance attribute" do
@@ -143,12 +141,7 @@ describe LevelEditor::Image do
 
     end
 
-    it "has no horizontal bar" do
-      @image.detect_objects["horizontal_bars"].size.must_equal(0)
-    end
-
-
-     it "can retrieve all pixels of the same line in the top direction" do
+    it "can retrieve all pixels of the same line in the top direction" do
       @image.find_consecutive_pixels(:top,0,0,[]).must_equal([[0,0]])
       @image.find_consecutive_pixels(:top,0,1,[]).must_equal([[0,1],[0,0]])
       @image.find_consecutive_pixels(:top,2,2,[]).must_equal([[2,2],[2,1],[2,0]])
