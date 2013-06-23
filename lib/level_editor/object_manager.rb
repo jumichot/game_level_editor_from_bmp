@@ -7,7 +7,7 @@ module LevelEditor
       @all_objects = Hash.new{|hash, key| hash[key] = []}
     end
 
-    ELEMENTS = {poisons: "red" , croissants: "yellow"}
+    ELEMENTS = {poisons: "red" , croissants: "yellow", milkeries: "blue"}
 
     ELEMENTS.each do |method, color|
       define_method method do

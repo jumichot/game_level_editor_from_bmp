@@ -29,4 +29,18 @@ describe LevelEditor::ObjectManager do
     end
   end
 
+  describe "croissant" do
+    it "can find croissants" do
+      @object_manager.scan_pixel(1,0)
+      @object_manager.croissants.count.must_equal(1)
+    end
+  end
+
+  describe "milkery" do
+    it "can find a milkeries" do
+      @object_manager.scan_pixel(3,0)
+      @object_manager.milkeries.count.must_equal(1)
+    end
+  end
+
 end
