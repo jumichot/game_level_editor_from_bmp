@@ -110,15 +110,15 @@ describe LevelEditor::Image do
 
   end
 
-  describe "crash test with 100x51 image with only horizontal lines" do
-    before do
-      @image = LevelEditor::Image.new("images/test_case_horizontale_lines.bmp")
+  describe "crash test with 100x51 image" do
+    it "can get all the horizontal lines of black pixels" do
+      image = LevelEditor::Image.new("images/test_case_horizontale_lines.bmp")
+      objects = image.detect_objects
+      objects["horizontal_bars"].size.must_equal(8)
+      objects["horizontal_bars"].must_equal([[0, 23, 0], [120, 139, 0], [13, 36, 11], [127, 139, 22], [0, 35, 25], [8, 52, 32], [0, 31, 50], [123, 139, 50]])
+      objects["vertical_bars"].size.must_equal(11)
     end
 
-    it "can get all the horizontal lines of black pixels" do
-      @image.detect_objects["horizontal_bars"].size.must_equal(9)
-      @image.detect_objects["horizontal_bars"].must_equal([[0, 23, 0], [120, 139, 0], [13, 36, 11], [127, 139, 22], [0, 35, 25], [22, 36, 31], [8, 52, 32], [0, 31, 50], [123, 139, 50]])
-    end
   end
 
   # Finished in 1.328345s, 12.7979 runs/s, 40.6521 assertions/s.
