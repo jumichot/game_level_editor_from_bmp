@@ -62,15 +62,14 @@ module LevelEditor
       end
     end
 
-    def vertical_line_pixels(x,y)
+    def find_all_pixels_on_the_line(direction,x,y)
       line = []
-      [:top,:bottom].each {|d| find_consecutive_pixels(d,x,y,line)}
-      return line.uniq.sort
-    end
-
-    def horizontale_line_pixels(x,y)
-      line = []
-      [:right,:left].each {|d| find_consecutive_pixels(d,x,y,line)}
+      case direction
+      when :vertical
+        [:top,:bottom].each {|d| find_consecutive_pixels(d,x,y,line)}
+      when :horizontal
+        [:right,:left].each {|d| find_consecutive_pixels(d,x,y,line)}
+      end
       return line.uniq.sort
     end
 
@@ -80,12 +79,9 @@ module LevelEditor
       end
     end
 
-    def already_identified?(ary,x,y)
-       get_color(x,y) == ary[convert_2D_to_1D(x,y)]
-    end
 
     def horizontale_line_output(x,y)
-      line = horizontale_line_pixels(x,y)
+      line = find_all_pixels_on_the_line(:horizontal,x,y)
       return if line.count == 1
       mark_visited_horizontal_pixels(line)
       [line.first[0], line.last[0], line.first[1]]
@@ -104,8 +100,12 @@ module LevelEditor
       end
       result["horizontal_bars"] = result["horizontal_bars"].uniq.compact
       result
+    end
 
+    def already_identified?(ary,x,y)
+       get_color(x,y) == ary[convert_2D_to_1D(x,y)]
     end
 
   end
+
 end

@@ -84,15 +84,15 @@ describe LevelEditor::Image do
     end
 
     it "can detect all the pixels of a line" do
-      @image.horizontale_line_pixels(0,0).must_equal([[0,0],[1,0],[2,0]])
-      @image.horizontale_line_pixels(2,0).must_equal([[0,0],[1,0],[2,0]])
-      @image.horizontale_line_pixels(1,0).must_equal([[0,0],[1,0],[2,0]])
-      @image.horizontale_line_pixels(2,2).must_equal([[0,2],[1,2],[2,2],[3,2],[4,2]])
-      @image.horizontale_line_pixels(3,1).must_equal([[3,1]])
-      @image.horizontale_line_pixels(4,0).must_equal([[4,0],[5,0]])
+      @image.find_all_pixels_on_the_line(:horizontal,0,0).must_equal([[0,0],[1,0],[2,0]])
+      @image.find_all_pixels_on_the_line(:horizontal,2,0).must_equal([[0,0],[1,0],[2,0]])
+      @image.find_all_pixels_on_the_line(:horizontal,1,0).must_equal([[0,0],[1,0],[2,0]])
+      @image.find_all_pixels_on_the_line(:horizontal,2,2).must_equal([[0,2],[1,2],[2,2],[3,2],[4,2]])
+      @image.find_all_pixels_on_the_line(:horizontal,3,1).must_equal([[3,1]])
+      @image.find_all_pixels_on_the_line(:horizontal,4,0).must_equal([[4,0],[5,0]])
     end
 
-    it "output the x_start, x_end, and the y of a line" do
+    it "output the x_start, x_end, and the y of a horizontal line" do
       @image.horizontale_line_output(2,2).must_equal([0,4,2])
       @image.horizontale_line_output(3,1).must_be_nil
     end
@@ -121,6 +121,9 @@ describe LevelEditor::Image do
     end
   end
 
+  # Finished in 1.328345s, 12.7979 runs/s, 40.6521 assertions/s.
+  # Finished in 0.943738s, 18.0135 runs/s, 56.1597 assertions/s. après amélioration
+
   describe "simple test case with 6x3 images with only vertical bars" do
     before do
       @image = LevelEditor::Image.new("images/test_case_2.bmp")
@@ -129,6 +132,7 @@ describe LevelEditor::Image do
       # 0 oxoxxx    x white
       # 1 oxoxxo    o black
       # 2 xxoxxo    - red
+
     end
 
     it "has no horizontal bar" do
@@ -172,15 +176,13 @@ describe LevelEditor::Image do
       first_black_line  = [[0,0],[0,1]]
       second_black_line = [[2,0],[2,1],[2,2]]
       third_black_line  = [[5,1],[5,2]]
-      @image.vertical_line_pixels(0,0).must_equal(first_black_line)
-      @image.vertical_line_pixels(0,1).must_equal(first_black_line)
-      @image.vertical_line_pixels(2,1).must_equal(second_black_line)
-      @image.vertical_line_pixels(2,0).must_equal(second_black_line)
-      @image.vertical_line_pixels(2,2).must_equal(second_black_line)
-      @image.vertical_line_pixels(5,1).must_equal(third_black_line)
+      @image.find_all_pixels_on_the_line(:vertical,0,0).must_equal(first_black_line)
+      @image.find_all_pixels_on_the_line(:vertical,0,1).must_equal(first_black_line)
+      @image.find_all_pixels_on_the_line(:vertical,2,1).must_equal(second_black_line)
+      @image.find_all_pixels_on_the_line(:vertical,2,0).must_equal(second_black_line)
+      @image.find_all_pixels_on_the_line(:vertical,2,2).must_equal(second_black_line)
+      @image.find_all_pixels_on_the_line(:vertical,5,1).must_equal(third_black_line)
     end
   end
 
-  # Finished in 1.328345s, 12.7979 runs/s, 40.6521 assertions/s.
-  # Finished in 0.943738s, 18.0135 runs/s, 56.1597 assertions/s. après amélioration
 end
