@@ -118,9 +118,8 @@ describe LevelEditor::ImageInterroger do
     end
 
     it "know pixels already identified for a color" do
-      ary = []
-      ary[0] =  @image.get_color(0,0)
-      @image.already_identified?(ary,0,0).must_equal(true)
+      @image.already_analized_pixel[0] =  @image.get_color(0,0)
+      @image.pixel_already_identified?(0,0).must_equal(true)
     end
 
   end

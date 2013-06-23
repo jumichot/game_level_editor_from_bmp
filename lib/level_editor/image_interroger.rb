@@ -95,7 +95,7 @@ module LevelEditor
       @already_analized_pixel = Array.new(width*height)
       @pixels.each_with_index do |pixel, index|
           x, y = convert_1D_to_2D(index)
-          unless already_identified?(@already_analized_pixel,x,y)
+          unless pixel_already_identified?(x,y)
             result[:horizontal_bars] << line_output(:horizontal,x,y) if pixel.to_color == LINE_ELEMENT
           end
             result[:vertical_bars] << line_output(:vertical,x,y) if pixel.to_color == LINE_ELEMENT
@@ -103,8 +103,8 @@ module LevelEditor
       result.each {|key,value| value.uniq!.compact!}
     end
 
-    def already_identified?(ary,x,y)
-       get_color(x,y) == ary[convert_2D_to_1D(x,y)]
+    def pixel_already_identified?(x,y)
+      get_color(x,y) == @already_analized_pixel[convert_2D_to_1D(x,y)]
     end
 
   end
