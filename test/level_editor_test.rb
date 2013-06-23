@@ -16,6 +16,10 @@ describe LevelEditor::Editor do
       @editor.image.class.must_equal LevelEditor::Image
     end
 
+    it "must have an LevelEditor::LineManager instance attribute" do
+      @editor.line_manager.class.must_equal LevelEditor::LineManager
+    end
+
     it "can retrieve the horizontal bars count " do
       @editor.objects[:horizontal_bars].count.must_equal(1)
     end
