@@ -64,8 +64,7 @@ module LevelEditor
 
     def horizontale_line_pixels(x,y)
       line = []
-      find_consecutive_pixels(:right,x,y,line)
-      find_consecutive_pixels(:left,x,y,line)
+      [:right,:left].each {|d| find_consecutive_pixels(d,x,y,line)}
       return line.uniq.sort
     end
 
