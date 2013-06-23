@@ -1,5 +1,6 @@
 module LevelEditor
   class Image
+    include ImageHelper
     attr_reader :original_image, :pixels, :already_analized_pixel
 
     LINE_ELEMENT = "black"
@@ -7,7 +8,7 @@ module LevelEditor
     def initialize(image_path)
       @original_image = Magick::Image::read(image_path).first
       @pixels = create_pixels_array
-      @already_analized_pixel = Array.new(width*heigth)
+      @already_analized_pixel = Array.new(width*height)
     end
 
     def create_pixels_array
@@ -20,7 +21,7 @@ module LevelEditor
       @original_image.columns
     end
 
-    def heigth
+    def height
       @original_image.rows
     end
 
@@ -32,10 +33,6 @@ module LevelEditor
       get(x,y).to_color
     end
 
-    def convert_2D_to_1D(x,y)
-      x + (y * width)
-    end
-
     def pixel_identical?(direction,x,y)
       case direction
       when :top
@@ -43,7 +40,7 @@ module LevelEditor
       when :right
         x + 1 < width and get_color(x,y) == get_color(x + 1, y)
       when :bottom
-        y + 1 < heigth and get_color(x,y) == get_color(x, y + 1)
+        y + 1 < height and get_color(x,y) == get_color(x, y + 1)
       when :left
         x != 0 and get_color(x,y) == get_color(x - 1, y)
       end
@@ -95,8 +92,8 @@ module LevelEditor
 
     def detect_objects
       result = Hash.new { |hash, key| hash[key] = [] }
-      @already_analized_pixel = Array.new(width*heigth)
-      (0..heigth-1).each do |y|
+      @already_analized_pixel = Array.new(width*height)
+      (0..height-1).each do |y|
         (0..width-1).each do |x|
           unless already_identified?(@already_analized_pixel,x,y)
             result[:horizontal_bars] << line_output(:horizontal,x,y) if get_color(x,y) == LINE_ELEMENT

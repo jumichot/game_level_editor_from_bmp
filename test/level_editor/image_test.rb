@@ -21,7 +21,7 @@ describe LevelEditor::Image do
     end
 
     it "can retrieve his heigth" do
-      @image.heigth.must_equal(3)
+      @image.height.must_equal(3)
     end
 
     it "convert the original image into an array of pixels" do
