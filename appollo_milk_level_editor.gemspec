@@ -10,4 +10,5 @@ Gem::Specification.new do |s|
   s.homepage    = ''
   s.add_development_dependency "minitest", ["= 4.3.2"]
   s.add_development_dependency "minitest-ansi", [">= 0"]
+  s.add_development_dependency "rmagick", [">= 0"]
 end
